@@ -15,7 +15,7 @@
       <!-- 添加按钮 -->
       <template slot="btn">
         <div>
-          <el-button v-has="'CardStore'" size="medium" @click="handelRedirect('CardStore')">添加卡劵</el-button>
+          <el-button v-has="'CardStore'" size="medium" @click="toRedirect('CardStore')">添加卡劵</el-button>
         </div>
       </template>
 
@@ -34,7 +34,7 @@
           v-has="'CardUpdate'"
           type="primary"
           size="small"
-          @click="handelRedirect('CardUpdate',props.scope.row.id)"
+          @click="toRedirect('CardUpdate',{id:props.scope.row.id})"
         >编辑</el-button>
       </template>
     </complex-table>
@@ -45,7 +45,6 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default.js'
-import { defalultConfirm, toRedirect } from '@/utils'
 
 export default {
   name: 'UserList',
@@ -153,15 +152,9 @@ export default {
           this.pagination.total = res.data.total
         })
     },
-    // 跳转页面
-    handelRedirect(a, id) {
-      var obj = {}
-      if (id) obj = { id }
-      toRedirect(a, obj)
-    },
     // 删除卡劵
     delCard(row) {
-      defalultConfirm('删除卡劵' + row.id, () => {
+      this.defalultConfirm('删除卡劵' + row.id, () => {
         apiBtn('CardDestroy', { id: row.id, card_id: row.card_id })
           .then((res) => {
             deleteArrayById(this.cardList, row.id)

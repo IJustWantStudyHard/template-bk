@@ -245,7 +245,6 @@ import Map from '@/components/Tool/Map'
 import FileManager from '@/components/FileManager/index'
 import { mapState, mapMutations } from 'vuex'
 import { getAreaStorage } from '@/utils/storage'
-import { toRedirect } from '@/utils/index'
 import { getCity } from '@/utils/area'
 import Bus from '@/utils/bus'
 
@@ -478,7 +477,6 @@ export default {
     })
   },
   methods: {
-    toRedirect: toRedirect,
     ...mapMutations('activity', [
       'VALID_SECOND',
       'ACTIVITY_FORM'

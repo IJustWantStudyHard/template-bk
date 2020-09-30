@@ -16,15 +16,15 @@
         </div>
       </template>
       <template v-slot:btn>
-        <el-button v-has="'TipStore'" type="primary" icon="el-icon-plus" @click="handelRedirect('TipStore')">添加系统公告</el-button>
+        <el-button v-has="'TipStore'" type="primary" icon="el-icon-plus" @click="toRedirect('TipStore')">添加系统公告</el-button>
       </template>
       <template v-slot:time="slotProps">
         {{ slotProps.scope.row.time| parseTime('{y}-{m}-{d}') }}
       </template>
       <!-- 操作 -->
       <template v-slot:action="slotProps">
-        <el-button v-has="'TipShow'" type="success" size="small" @click="handelRedirect('TipShow',slotProps.scope.row.id)">查看</el-button>
-        <el-button v-has="'TipUpdate'" type="primary" size="small" @click="handelRedirect('TipUpdate',slotProps.scope.row.id)">编辑</el-button>
+        <el-button v-has="'TipShow'" type="success" size="small" @click="toRedirect('TipShow',{id:slotProps.scope.row.id})">查看</el-button>
+        <el-button v-has="'TipUpdate'" type="primary" size="small" @click="toRedirect('TipUpdate',{id:slotProps.scope.row.id})">编辑</el-button>
         <el-button v-has="'TipDestroy'" type="warning" size="small" @click="handleDel(slotProps.scope.row)">删除</el-button>
       </template>
     </complex-table>
@@ -34,7 +34,7 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { defalultConfirm, deleteArrayById, toRedirect } from '@/utils'
+import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -100,15 +100,9 @@ export default {
         this.tagOption = res.data
       })
     },
-    // 跳转页面
-    handelRedirect(a, id) {
-      var obj = {}
-      if (id) obj = { id }
-      toRedirect(a, obj)
-    },
     // 删除
     handleDel(row) {
-      defalultConfirm('删除' + row.title + ', 是否继续?', () => {
+      this.defalultConfirm('删除' + row.title + ', 是否继续?', () => {
         apiBtn('TipDestroy', { id: row.id })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)

@@ -58,7 +58,6 @@
 
 <script>
 import PageTable from '@/components/Table/PageTable'
-import { defalultConfirm } from '@/utils'
 import { apiBtn } from '@/api/default'
 // import QRCode from 'qrcode'
 
@@ -111,7 +110,7 @@ export default {
       this.binding(index, '绑定', 1)
     },
     binding(index, str, state) {
-      defalultConfirm(`${str}${this.tableData[index].user.nickname}的微信到您的帐号`, () => {
+      this.defalultConfirm(`${str}${this.tableData[index].user.nickname}的微信到您的帐号`, () => {
         apiBtn('WxUpdate', { id: this.tableData[index].user.userId, state })
           .then(() => {
             // 重新获取页面列表
@@ -134,7 +133,7 @@ export default {
         })
     },
     addWx() {
-      defalultConfirm('正在绑定微信号', () => {
+      this.defalultConfirm('正在绑定微信号', () => {
         location.replace(this.wx_bind_location)
       })
     }

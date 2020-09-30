@@ -33,7 +33,7 @@
       <template v-slot:btn>
         <div>
           <el-button v-has="'CashExport'" size="medium" icon="el-icon-download" @click="exportToExcel()">导出</el-button>
-          <el-button v-show="showAccount" v-has="'CashStore'" type="primary" size="medium" @click="handelRedirect('CashStore')">发起提现</el-button>
+          <el-button v-show="showAccount" v-has="'CashStore'" type="primary" size="medium" @click="toRedirect('CashStore')">发起提现</el-button>
         </div>
       </template>
       <template v-slot:add_time="slotProps">{{ slotProps.scope.row.add_time|parseTime() }}</template>
@@ -49,7 +49,7 @@
           <el-button
             v-has="'CashShow'"
             size="small"
-            @click="handelRedirect('CashShow',{id:slotProps.scope.row.id})"
+            @click="toRedirect('CashShow',{id:slotProps.scope.row.id})"
           >详情</el-button>
           <el-button
             v-show="(slotProps.scope.row.status===1)&&(slotProps.scope.row.admin_id==userId)"
@@ -82,9 +82,7 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { defalultConfirm, toRedirect, removeProperty } from '@/utils'
 import { apiBtn } from '@/api/default'
-import { parseTime } from '@/utils'
 
 export default {
   name: 'LogPic',
@@ -174,7 +172,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('CashIndex', removeProperty({ ...searchObj })).then((res) => {
+      apiBtn('CashIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
@@ -185,13 +183,13 @@ export default {
         2: '通过审核(通过审核后自动提现到微信零钱)',
         3: '驳回审核'
       }
-      defalultConfirm(obj[status], () => {
+      this.defalultConfirm(obj[status], () => {
         this.patch({ id: row.id, status }, row)
       })
     },
     // 撤回
     rollBack(row) {
-      defalultConfirm('撤回提现申请', () => {
+      this.defalultConfirm('撤回提现申请', () => {
         this.patch({ id: row.id, status: 4 }, row)
       })
     },
@@ -203,8 +201,6 @@ export default {
           if (res && res.data.status) row.status = res.data.status
         })
     },
-    // 跳转页面
-    handelRedirect: toRedirect,
     changeTime(val) {
       this.formSearch.time = val
     },
@@ -237,7 +233,7 @@ export default {
             const filterVal = ['out_trade_no', 'add_time', 'name', 'phone', 'money', 'cash_money', 'status']
             const list = res.data.list
             const data = this.formatJson(filterVal, list)
-            export_json_to_excel(tHeader, data, '提现列表' + parseTime(new Date(), '{y}-{m}-{d}'))
+            export_json_to_excel(tHeader, data, '提现列表' + this.parseTime(new Date(), '{y}-{m}-{d}'))
           })
         })
     },

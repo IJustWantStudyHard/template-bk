@@ -79,7 +79,6 @@
 
 <script>
 import PageTable from '@/components/Table/PageTable'
-import { defalultConfirm } from '@/utils'
 import { apiBtn } from '@/api/default'
 import QRCode from 'qrcode'
 
@@ -111,7 +110,7 @@ export default {
       this.binding(index, '绑定', 1)
     },
     binding(index, str, status) {
-      defalultConfirm(`${str}${this.tableData[index].user.nickname}核销员`, () => {
+      this.defalultConfirm(`${str}${this.tableData[index].user.nickname}核销员`, () => {
         apiBtn('AuditorPatch', { id: this.tableData[index].id, status })
           .then(() => {
             // 重新获取页面列表
@@ -134,7 +133,7 @@ export default {
         })
     },
     addWx() {
-      // defalultConfirm('正在绑定核销员', () => {
+      // this.defalultConfirm('正在绑定核销员', () => {
 
       // })
       apiBtn('GetWechatLink')

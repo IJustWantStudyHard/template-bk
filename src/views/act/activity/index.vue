@@ -19,7 +19,7 @@
       </template>
       <!-- 创建活动 -->
       <template v-slot:btn>
-        <el-button v-has="'ActivityStore'" type="primary" icon="el-icon-plus" @click="navigate('ActivityStore', null)">创建活动</el-button>
+        <el-button v-has="'ActivityStore'" type="primary" icon="el-icon-plus" @click="toRedirect('ActivityStore')">创建活动</el-button>
       </template>
 
       <!-- 标题 -->
@@ -76,21 +76,21 @@
       <!-- 操作按钮 -->
       <template v-slot:operation="props">
         <div class="btn-box">
-          <el-button v-show="reviewStatus(props.scope.row.status)" v-has="'ActivityPatch'" type="warning" size="small" @click="navigate('ActivityPatch', props.scope.row)">审核</el-button>
+          <el-button v-show="reviewStatus(props.scope.row.status)" v-has="'ActivityPatch'" type="warning" size="small" @click="toRedirect('ActivityPatch', {id:props.scope.row.id})">审核</el-button>
 
-          <el-button v-show="showEdit(props.scope.row.status)" v-has="'ActivityUpdate'" type="primary" size="small" @click="navigate('ActivityUpdate', props.scope.row)">编辑</el-button>
-          <el-button v-show="!showEdit(props.scope.row.status) && !reviewStatus(props.scope.row.status)" v-has="'ActivityUpdate'" type="primary" size="small" @click="navigate('ActivityUpdate', props.scope.row)">查看</el-button>
+          <el-button v-show="showEdit(props.scope.row.status)" v-has="'ActivityUpdate'" type="primary" size="small" @click="toRedirect('ActivityUpdate', {id:props.scope.row.id})">编辑</el-button>
+          <el-button v-show="!showEdit(props.scope.row.status) && !reviewStatus(props.scope.row.status)" v-has="'ActivityUpdate'" type="primary" size="small" @click="toRedirect('ActivityUpdate', {id:props.scope.row.id})">查看</el-button>
           <el-button v-show="showAccount(props.scope.row)" v-has="'ActivityAccount'" type="danger" size="small" @click="closeAccount('ActivityAccount', props.scope.row)">结算</el-button>
 
           <el-button v-show="showDel(props.scope.row.status)" v-has="'ActivityDestroy'" type="danger" size="small" @click="del('ActivityDestroy', props.scope.row)">删除</el-button>
 
-          <el-button v-show="showDetail(props.scope.row.status)&&'1'.indexOf($store.getters.roles[0]) >= 0" v-has="'ActuserIndex'" size="small" @click="navigate('ActivityActuser', props.scope.row)">访问用户</el-button>
-          <el-button v-show="showDetail(props.scope.row.status)" v-has="'RedIndex'" size="small" @click="navigate('ActivityRed', props.scope.row)">领取记录</el-button>
-          <el-button v-show="'24'.indexOf(props.scope.row.status) >= 0" v-has="'PrestoredIndex'" size="small" @click="navigate('ActivityPrestored', props.scope.row)">充值</el-button>
-          <!-- <el-button v-show="showDetail(props.scope.row.status)" v-has="'AppendIndex'" size="small" @click="navigate('ActivityAppend', props.scope.row)">追加</el-button> -->
-          <el-button v-if="showDetail(props.scope.row.status)" v-has="'CardlogIndex'" size="small" @click="navigate('CardLog',props.scope.row)">卡劵</el-button>
-          <el-button v-show="showDetail(props.scope.row.status)" v-has="'MessageIndex'" size="small" @click="navigate('ActivityMessage', props.scope.row)">留言</el-button>
-          <!-- <el-button v-show="showDetail(props.scope.row.status)" v-has="'ComplaintIndex'" size="small" @click="navigate('ActivityComplaint', props.scope.row)">投诉</el-button> -->
+          <el-button v-show="showDetail(props.scope.row.status)&&'1'.indexOf($store.getters.roles[0]) >= 0" v-has="'ActuserIndex'" size="small" @click="toRedirect('ActivityActuser', {id:props.scope.row.id})">访问用户</el-button>
+          <el-button v-show="showDetail(props.scope.row.status)" v-has="'RedIndex'" size="small" @click="toRedirect('ActivityRed', {id:props.scope.row.id})">领取记录</el-button>
+          <el-button v-show="'24'.indexOf(props.scope.row.status) >= 0" v-has="'PrestoredIndex'" size="small" @click="toRedirect('ActivityPrestored', {id:props.scope.row.id})">充值</el-button>
+          <!-- <el-button v-show="showDetail(props.scope.row.status)" v-has="'AppendIndex'" size="small" @click="toRedirect('ActivityAppend', {id:props.scope.row.id})">追加</el-button> -->
+          <el-button v-if="showDetail(props.scope.row.status)" v-has="'CardlogIndex'" size="small" @click="toRedirect('CardLog',{id:props.scope.row.id})">卡劵</el-button>
+          <el-button v-show="showDetail(props.scope.row.status)" v-has="'MessageIndex'" size="small" @click="toRedirect('ActivityMessage', {id:props.scope.row.id})">留言</el-button>
+          <!-- <el-button v-show="showDetail(props.scope.row.status)" v-has="'ComplaintIndex'" size="small" @click="toRedirect('ActivityComplaint', {id:props.scope.row.id})">投诉</el-button> -->
 
           <el-button v-if="showDetail(props.scope.row.status)" v-clipboard:copy="props.scope.row.link" v-clipboard:success="onCopy" v-clipboard:error="onError" size="small">复制链接</el-button>
 
@@ -109,7 +109,7 @@
 import { mapGetters } from 'vuex'
 import ComplexTable from '@/components/Table/ComplexTable.vue'
 import { apiBtn } from '@/api/default'
-import { toRedirect, defalultConfirm, deleteArrayById } from '@/utils/index'
+import { deleteArrayById } from '@/utils/index'
 import QRCode from 'qrcode'
 import VideoDialog from '@/components/Dialog/VideoDialog'
 
@@ -238,10 +238,6 @@ export default {
     searchActivity() {
       this.getList()
     },
-    // 跳转页面
-    navigate(name, row) {
-      toRedirect(name, row ? { id: row.id } : '')
-    },
     // 获取活动列表
     getList(pagination) {
       if (pagination) this.pagination = { ...pagination }
@@ -280,14 +276,14 @@ export default {
             this.$set(row, 'status', row.status === 2 ? 4 : 2)
             if (row.status === 2 && row.card_probability < 100 && row.total_money < 0.3) {
               this.$message('红包金额不足，请充值')
-              this.navigate('ActivityPrestored', row)
+              this.toRedirect('ActivityPrestored', { id: row.id })
             }
           })
           .catch(res => {
             catchBack()
           })
       }
-      defalultConfirm(msg, callBack, catchBack)
+      this.defalultConfirm(msg, callBack, catchBack)
     },
     // 结算
     closeAccount(name, row) {
@@ -321,7 +317,7 @@ export default {
             deleteArrayById(this.tableData, row.id)
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     // 审核按钮
     reviewStatus(val) {

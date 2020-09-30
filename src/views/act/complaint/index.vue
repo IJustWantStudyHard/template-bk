@@ -23,7 +23,7 @@
         <div class="user-avater">
           <img :src="props.scope.row.user.avatar">
           <span>{{ props.scope.row.user.nickname }}</span>
-          <span class="user" @click="searchUser(props.scope.row.user.id)">{{ '（' + props.scope.row.user.id + '）' }}</span>
+          <span class="user" @click="toRedirect('ActivityActuser', { user_id: props.scope.row.user.id })">{{ '（' + props.scope.row.user.id + '）' }}</span>
         </div>
       </template>
       <!-- 手机号 -->
@@ -47,7 +47,7 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { defalultConfirm, deleteArrayById, toRedirect } from '@/utils'
+import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -138,10 +138,6 @@ export default {
           this.pagination.total = res.data.total
         })
     },
-    // 查看用户信息
-    searchUser(id) {
-      toRedirect('ActivityActuser', { user_id: id })
-    },
     // 删除
     deleteItem(row) {
       const msg = '删除后将无法恢复'
@@ -151,7 +147,7 @@ export default {
             deleteArrayById(this.tableData, row.id)
           })
       }
-      defalultConfirm(msg, callback)
+      this.defalultConfirm(msg, callback)
     },
     deleteMore() {
       if (this.selections.length) {
@@ -163,7 +159,7 @@ export default {
               this.getList()
             })
         }
-        defalultConfirm(msg, callback)
+        this.defalultConfirm(msg, callback)
       } else {
         this.$message({
           type: 'warning',

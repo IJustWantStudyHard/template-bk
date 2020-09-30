@@ -9,7 +9,7 @@
 
       <template v-slot:btn>
         <div class="select-box">
-          <el-button v-has="'ExampleStore'" type="primary" icon="el-icon-connection" @click="handelRedirect('AdExample')">霸屏示例</el-button>
+          <el-button v-has="'ExampleStore'" type="primary" icon="el-icon-connection" @click="toRedirect('AdExample')">霸屏示例</el-button>
 
           <el-button v-has="'AdStore'" icon="el-icon-plus" @click="isVisible = true">添加广告</el-button>
         </div>
@@ -35,7 +35,6 @@ import ComplexTable from '@/components/Table/ComplexTable'
 import AdDialog from '@/components/Dialog/AdDialog'
 
 import { apiBtn } from '@/api/default'
-import { defalultConfirm, toRedirect } from '@/utils/index'
 
 export default {
   name: 'Ad',
@@ -75,7 +74,6 @@ export default {
     this.getList()
   },
   methods: {
-    handelRedirect: toRedirect,
     edit(row) {
       this.checkedRow = row
       this.isVisible = true
@@ -96,7 +94,7 @@ export default {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     setting(name, row) {
       if (row.is_default) return

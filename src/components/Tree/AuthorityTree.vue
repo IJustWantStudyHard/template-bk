@@ -13,7 +13,7 @@
   />
 </template>
 <script>
-import { getAuthorityTree } from '@/utils'
+import { getAuthorityTree } from '@/utils/authority'
 
 export default {
   name: 'AuthorityTree',

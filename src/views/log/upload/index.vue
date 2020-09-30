@@ -63,7 +63,7 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { defalultConfirm, deleteArrayById } from '@/utils'
+import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -134,7 +134,7 @@ export default {
       if (this.multipleSelection.length === 0) this.$message('请选择图片')
       else {
         var arrId = this.multipleSelection.map((i) => { return i.id })
-        defalultConfirm('选中图片线上删除后将无法恢复', () => {
+        this.defalultConfirm('选中图片线上删除后将无法恢复', () => {
           apiBtn('UploadDestroy', { id: arrId })
             .then((res) => {
               this.getPicList()
@@ -144,7 +144,7 @@ export default {
       }
     },
     handleClick(row) {
-      defalultConfirm('删除' + row.name, () => {
+      this.defalultConfirm('删除' + row.name, () => {
         apiBtn('UploadDestroy', { id: [row.id] })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)

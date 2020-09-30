@@ -30,7 +30,6 @@
 </template>
 <script>
 import { apiBtn } from '@/api/default'
-import { defalultConfirm, parseTime } from '@/utils'
 
 export default {
   data() {
@@ -172,7 +171,7 @@ export default {
     getInfo() {
       apiBtn('CashShow', { id: this.$route.query.id }).then((res) => {
         res.data.cash.type = this.typeOptions[res.data.cash.type]
-        res.data.cash.add_time = parseTime(res.data.cash.add_time)
+        res.data.cash.add_time = this.parseTime(res.data.cash.add_time)
         this.data = res.data
         this.statusList[2].html = '审核通过（订单号：' + res.data.cash.out_trade_no + '）'
         if (this.data.cash.reason) this.statusList[5].html = '失败<div class="tip-font">（失败原因：' + res.data.cash.reason + '）</div>'
@@ -186,7 +185,7 @@ export default {
         2: '通过审核(通过审核后自动提现到微信零钱)',
         3: '驳回审核'
       }
-      defalultConfirm(obj[status], () => {
+      this.defalultConfirm(obj[status], () => {
         apiBtn('CashPatch', { id: this.data.cash.id, status })
           .then((res) => {
             this.data.cash.status = res.data.status

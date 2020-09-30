@@ -38,7 +38,6 @@ import ComplexTable from '@/components/Table/ComplexTable'
 import ExampleDialog from '@/components/Dialog/ExampleDialog'
 
 import { apiBtn } from '@/api/default'
-import { defalultConfirm } from '@/utils/index'
 
 export default {
   components: { ComplexTable, ExampleDialog },
@@ -84,7 +83,7 @@ export default {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     // 普通查找
     search() {

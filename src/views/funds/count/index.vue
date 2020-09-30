@@ -34,7 +34,6 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
 import { apiBtn } from '@/api/default'
-import { parseTime } from '@/utils'
 
 export default {
   name: 'LogPic',
@@ -131,7 +130,7 @@ export default {
             const filterVal = ['time', 'act_create_num', 'act_recharge_num', 'account_recharge_num', 'account_withdraw', 'labour_withdraw', 'act_get_redpacket', 'act_user_withdraw', 'act_popularize', 'act_redpacket_num', 'act_popularize_num', 'user_cash_num', 'count_cash']
             const list = res.data.list
             const data = this.formatJson(filterVal, list)
-            export_json_to_excel(tHeader, data, '收支统计' + parseTime(new Date(), '{y}-{m}-{d}'))
+            export_json_to_excel(tHeader, data, '收支统计' + this.parseTime(new Date(), '{y}-{m}-{d}'))
           })
         })
     },

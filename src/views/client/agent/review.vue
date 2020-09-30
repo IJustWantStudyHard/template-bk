@@ -91,7 +91,6 @@
 </template>
 
 <script>
-import { defalultConfirm } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -143,7 +142,7 @@ export default {
     },
     // 通过驳回方法
     handlePass(status) {
-      defalultConfirm(this.statusType[status] + '该用户的用户信息', () => {
+      this.defalultConfirm(this.statusType[status] + '该用户的用户信息', () => {
         apiBtn('AgentCheck', { id: this.data.id, review: status })
           .then((res) => {
             this.data.review = status

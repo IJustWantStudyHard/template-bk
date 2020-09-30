@@ -62,7 +62,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import { apiBtn } from '@/api/default'
-import { defalultConfirm } from '@/utils'
 
 export default {
   name: 'LogLogin',
@@ -138,7 +137,7 @@ export default {
       }
     },
     handelDel(row) {
-      defalultConfirm('删除IP：' + row.ip, () => {
+      this.defalultConfirm('删除IP：' + row.ip, () => {
         apiBtn('IpDestroy', { id: row.id })
           .then((res) => {
             this.getList()
@@ -158,7 +157,7 @@ export default {
     },
     // 解封用户
     ipRelieve(row) {
-      defalultConfirm('解封IP：' + row.ip + '下所有用户', () => {
+      this.defalultConfirm('解封IP：' + row.ip + '下所有用户', () => {
         apiBtn('IpRelieve', { ip: row.ip })
       })
     }

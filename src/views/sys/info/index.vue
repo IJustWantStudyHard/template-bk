@@ -11,7 +11,7 @@
                 <div class="top-card-info-money">{{ person.money }}元</div>
               </div>
               <div>
-                <el-button type="primary" @click="handelRedirect('PaymentStore')">充值</el-button>
+                <el-button type="primary" @click="toRedirect('PaymentStore')">充值</el-button>
                 <el-button v-if="showAuth" :disabled="!!isAuth" type="primary" @click="getURL('AgentAuth')">{{ isAuth?'公众号已授权':'公众号授权' }}</el-button>
               </div>
             </div>
@@ -69,7 +69,6 @@ import Service from '@/components/Form/Sys/Service'
 import { apiBtn } from '@/api/default'
 import { getCity } from '@/utils/area'
 import FileManager from '@/components/FileManager/index'
-import { toRedirect } from '@/utils/index'
 import { validatePhone } from '@/utils/validate'
 
 export default {
@@ -231,8 +230,6 @@ export default {
           window.open(res.data)
         })
     },
-    // 跳转页面
-    handelRedirect: toRedirect,
     // 图片上传成功回调
     update(obj) {
       this.person.avatar = obj

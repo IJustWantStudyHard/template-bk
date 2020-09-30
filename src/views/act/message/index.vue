@@ -59,7 +59,7 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { defalultConfirm, deleteArrayById } from '@/utils'
+import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
 import { validateNumber } from '@/utils/validate'
 
@@ -155,7 +155,7 @@ export default {
             deleteArrayById(this.tableData, row.id)
           })
       }
-      defalultConfirm(msg, callback)
+      this.defalultConfirm(msg, callback)
     },
     // 开关控制 精选
     changeSwitch(name, row) {
@@ -176,7 +176,7 @@ export default {
             catchBack()
           })
       }
-      defalultConfirm(msg, callBack, catchBack)
+      this.defalultConfirm(msg, callBack, catchBack)
     },
     // 置顶
     topItem(name, row) {
@@ -191,7 +191,7 @@ export default {
             this.$set(row, 'top', !row.top)
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     // 修改点赞数
     confirmEdit(row) {

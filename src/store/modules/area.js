@@ -1,5 +1,5 @@
 import { setAreaStorage, getAreaStorage } from '@/utils/storage'
-import { deleteArrayById, defalultConfirm } from '@/utils/index'
+import { deleteArrayById } from '@/utils/index'
 import { addChildren, updateChildren } from '@/utils/area'
 import { apiBtn } from '@/api/default'
 
@@ -77,7 +77,7 @@ const actions = {
           setAreaStorage(list)
         })
     }
-    defalultConfirm(msg, callback)
+    this.defalultConfirm(msg, callback)
   },
   // 省级需要查询子级，其他不需要
   ToggleFold({ commit, state }, id) {

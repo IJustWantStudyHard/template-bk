@@ -82,7 +82,6 @@
 </template>
 <script>
 import { apiBtn } from '@/api/default'
-import { defalultConfirm } from '@/utils'
 import {
   validatMixRegular,
   validateNumber,
@@ -259,7 +258,7 @@ export default {
     },
     // 删除权限
     deleteForm() {
-      defalultConfirm('此操作将永久删除该权限', () => {
+      this.defalultConfirm('此操作将永久删除该权限', () => {
         apiBtn('AuthorityDestroy', { id: this.formAuthority.id })
           .then(res => {
             // 为this.data删除数据

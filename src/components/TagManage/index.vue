@@ -38,7 +38,7 @@
 <script>
 import PageTable from '@/components/Table/PageTable'
 import { apiBtn } from '@/api/default'
-import { defalultConfirm, deleteArrayById } from '@/utils'
+import { deleteArrayById } from '@/utils'
 
 // 系统公告标签组管理
 export default {
@@ -94,7 +94,7 @@ export default {
     },
     // 删除标签
     delTag(row) {
-      defalultConfirm('删除' + row.name, () => {
+      this.defalultConfirm('删除' + row.name, () => {
         apiBtn('TagDestroy', { id: row.id })
           .then((res) => {
             deleteArrayById(this.tagOption, row.id)

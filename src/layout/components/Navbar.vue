@@ -70,7 +70,6 @@
 import { mapGetters, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import { defalultConfirm } from '@/utils/index'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -138,7 +137,7 @@ export default {
             this.refreshUserInfo()
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     refreshUserInfo() {
       this.$store.dispatch('user/getInfo')

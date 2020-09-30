@@ -57,7 +57,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { defalultConfirm } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -146,7 +145,7 @@ export default {
       this.getUserList()
     },
     handleClick(row) {
-      defalultConfirm(row.robot === 0 ? '标记该用户' : '解除标记该用户', () => {
+      this.defalultConfirm(row.robot === 0 ? '标记该用户' : '解除标记该用户', () => {
         apiBtn('ActuserUpdate', { id: row.userId, robot: row.robot === 0 ? 1 : 0 })
           .then((res) => {
             row.robot = res.data.robot

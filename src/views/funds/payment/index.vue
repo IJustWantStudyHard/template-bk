@@ -33,7 +33,7 @@
       <template v-slot:btn>
         <div>
           <el-button v-has="'PaymentExport'" size="medium" icon="el-icon-download" @click="exportToExcel()">导出</el-button>
-          <el-button v-has="'PaymentOrder'" type="primary" size="medium" @click="handelRedirect('PaymentStore')">发起充值</el-button>
+          <el-button v-has="'PaymentOrder'" type="primary" size="medium" @click="toRedirect('PaymentStore')">发起充值</el-button>
         </div>
       </template>
 
@@ -58,9 +58,7 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { defalultConfirm, toRedirect, removeProperty } from '@/utils'
 import { apiBtn } from '@/api/default'
-import { parseTime } from '@/utils'
 
 export default {
   name: 'LogPic',
@@ -148,13 +146,13 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('PaymentIndex', removeProperty({ ...searchObj })).then((res) => {
+      apiBtn('PaymentIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
     },
     patch(row) {
-      defalultConfirm(`将要关闭订单${row.out_trade_no},是否继续？`, () => {
+      this.defalultConfirm(`将要关闭订单${row.out_trade_no},是否继续？`, () => {
         console.log('in')
         // status 1成功 0关闭
         apiBtn('PaymentEnd', { out_trade_no: row.out_trade_no, status: 0 })
@@ -165,8 +163,6 @@ export default {
           })
       })
     },
-    // 跳转页面
-    handelRedirect: toRedirect,
     changeTime(val) {
       this.formSearch.time = val
     },
@@ -199,7 +195,7 @@ export default {
             const filterVal = ['out_trade_no', 'add_time', 'pay_time', 'name', 'money', 'Recharge_money', 'status']
             const list = res.data.list
             const data = this.formatJson(filterVal, list)
-            export_json_to_excel(tHeader, data, '充值列表' + parseTime(new Date(), '{y}-{m}-{d}'))
+            export_json_to_excel(tHeader, data, '充值列表' + this.parseTime(new Date(), '{y}-{m}-{d}'))
           })
         })
     },

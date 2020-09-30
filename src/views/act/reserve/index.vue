@@ -31,9 +31,8 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { defalultConfirm, deleteArrayById } from '@/utils'
+import { deleteArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
-import { parseTime } from '@/utils'
 
 export default {
   components: { ComplexTable },
@@ -106,7 +105,7 @@ export default {
             deleteArrayById(this.tableData, row.id)
           })
       }
-      defalultConfirm(msg, callback)
+      this.defalultConfirm(msg, callback)
     },
     initPagination() {
       this.pagination = {
@@ -133,7 +132,7 @@ export default {
             const filterVal = ['name', 'phone', 'add_time']
             const list = res.data.list
             const data = this.formatJson(filterVal, list)
-            export_json_to_excel(tHeader, data, '用户信息' + parseTime(new Date(), '{y}-{m}-{d}'))
+            export_json_to_excel(tHeader, data, '用户信息' + this.parseTime(new Date(), '{y}-{m}-{d}'))
           })
         })
     },

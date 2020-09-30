@@ -43,7 +43,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { removeProperty } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -103,7 +102,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('CashuserIndex', removeProperty({ ...searchObj })).then((res) => {
+      apiBtn('CashuserIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })

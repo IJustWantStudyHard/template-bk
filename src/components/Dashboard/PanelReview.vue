@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { toRedirect } from '@/utils'
 export default {
   props: {
     data: {
@@ -58,7 +57,6 @@ export default {
     }
   },
   methods: {
-    handelRedirect: toRedirect,
     more() {
       this.$router.push(this.typeName[this.type].path)
     },

@@ -18,7 +18,8 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-import * as filters from './filters' // global filters
+import '@/common/mixin'
+import * as filters from './common/filter' // global filters
 import has from '@/directive/btn_authority'
 
 // 剪切板

@@ -79,8 +79,6 @@
 </template>
 
 <script>
-// 引入二次提示框
-import { defalultConfirm } from '@/utils'
 
 export default {
   name: 'Login',
@@ -127,7 +125,7 @@ export default {
     // 切换登录方式
     wxLogin(e) {
       // 微信登录
-      defalultConfirm('正在使用微信登录, 是否继续?', () => {
+      this.defalultConfirm('正在使用微信登录, 是否继续?', () => {
         location.replace(this.$store.state.config.wx_login_location)
       }, () => {
         this.activeName = 'first'

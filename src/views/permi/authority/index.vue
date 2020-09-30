@@ -53,7 +53,8 @@
 <script>
 import AuthorityForm from '@/components/Form/AuthorityForm' // base on element-ui
 import AuthorityTree from '@/components/Tree/AuthorityTree'
-import { getAGroupOption, getAPageOption, addArrayById, modifyArrayById } from '@/utils'
+import { getAGroupOption, getAPageOption } from '@/utils/authority'
+import { addArrayById, modifyArrayById } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {

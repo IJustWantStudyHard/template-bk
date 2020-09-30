@@ -4,7 +4,7 @@ import {
 } from '@/router'
 import {
   formatPermiBtn
-} from '@/utils'
+} from '@/utils/authority'
 
 const Layout = () => import('@/layout/index')
 

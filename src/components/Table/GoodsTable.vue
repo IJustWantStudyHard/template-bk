@@ -18,7 +18,6 @@
 </template>
 <script>
 import PageTable from '@/components/Table/PageTable'
-import { defalultConfirm } from '@/utils'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -140,7 +139,7 @@ export default {
     },
     // 删除商品
     delGoods(row) {
-      defalultConfirm('删除商品' + row.card_name, () => {
+      this.defalultConfirm('删除商品' + row.card_name, () => {
         this.$store.dispatch('goods/delGoods', { id: row.id })
       })
     }

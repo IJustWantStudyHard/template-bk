@@ -42,7 +42,7 @@
 
           <el-button v-if="hasSelection" v-has="'AgentMigrate'" type="primary" icon="el-icon-connection" @click="moveStore">转移用户</el-button>
 
-          <el-button v-has="'AgentStore'" icon="el-icon-plus" @click="goUserForm('AgentStore')">添加用户</el-button>
+          <el-button v-has="'AgentStore'" icon="el-icon-plus" @click="toRedirect('AgentStore')">添加用户</el-button>
         </div>
       </template>
 
@@ -114,9 +114,9 @@
       <template v-slot:operation="props">
         <div class="btn-box">
           <el-button v-has="'AgentLabourStore'" type="success" size="small" @click="labour('AgentLabourStore', props.scope.row)">充值</el-button>
-          <el-button v-has="'AgentUpdate'" type="primary" size="small" @click="goUserForm('AgentUpdate', props.scope.row)">编辑</el-button>
-          <el-button v-show="showCheck(props.scope.row)" v-has="'AgentCheck'" type="warning" size="small" @click="goUserForm('AgentCheck', props.scope.row)">审核</el-button>
-          <el-button v-show="showDetail(props.scope.row)" v-has="'AgentShow'" type="info" size="small" @click="goUserForm('AgentCheck', props.scope.row)">详情</el-button>
+          <el-button v-has="'AgentUpdate'" type="primary" size="small" @click="toRedirect('AgentUpdate', {id:props.scope.row.id})">编辑</el-button>
+          <el-button v-show="showCheck(props.scope.row)" v-has="'AgentCheck'" type="warning" size="small" @click="toRedirect('AgentCheck', {id:props.scope.row.id})">审核</el-button>
+          <el-button v-show="showDetail(props.scope.row)" v-has="'AgentShow'" type="info" size="small" @click="toRedirect('AgentCheck', {id:props.scope.row.id})">详情</el-button>
           <el-button v-has="'AgentDestroy'" type="danger" size="small" @click="deleteUser('AgentDestroy', props.scope.row)">删除</el-button>
         </div>
       </template>
@@ -135,7 +135,6 @@ import AgentChangeDialog from '@/components/Dialog/AgentChangeDialog'
 
 import DatePicker from '@/components/Tool/DatePicker'
 import { apiBtn } from '@/api/default'
-import { defalultConfirm, toRedirect } from '@/utils/index'
 import { getCity } from '@/utils/area'
 
 export default {
@@ -285,14 +284,6 @@ export default {
       this.agentSelect = [...this.$store.state.search.agent.agentSelect]
       this.getList(this.$store.state.search.agent.pagination)
     },
-    // 增加、编辑用户
-    goUserForm(name, user) {
-      if (user) {
-        toRedirect(name, { id: user.id })
-      } else {
-        toRedirect(name)
-      }
-    },
     // 备注：切换input与span
     focusRemark(row) {
       // 代理商创建门店时，可填写备注，不能修改备注
@@ -361,7 +352,7 @@ export default {
             catchBack()
           })
       }
-      defalultConfirm(msg, callBack, catchBack)
+      this.defalultConfirm(msg, callBack, catchBack)
     },
     // 删除
     deleteUser(name, row) {
@@ -372,7 +363,7 @@ export default {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
       }
-      defalultConfirm(msg, callBack)
+      this.defalultConfirm(msg, callBack)
     },
     // 普通查找
     search() {

@@ -20,9 +20,9 @@
       </p>
     </div>
     <div class="action">
-      <el-button v-has="'ActivityStore'" class="btn" type="primary" @click="handelRedirect('ActivityStore')">创建活动</el-button>
-      <el-button v-has="'PaymentOrder'" class="btn" type="primary" @click="handelRedirect('PaymentStore')">充值</el-button>
-      <el-button v-show="showAccount" v-has="'CashStore'" class="btn" type="primary" @click="handelRedirect('CashStore')">提现</el-button>
+      <el-button v-has="'ActivityStore'" class="btn" type="primary" @click="toRedirect('ActivityStore')">创建活动</el-button>
+      <el-button v-has="'PaymentOrder'" class="btn" type="primary" @click="toRedirect('PaymentStore')">充值</el-button>
+      <el-button v-show="showAccount" v-has="'CashStore'" class="btn" type="primary" @click="toRedirect('CashStore')">提现</el-button>
     </div>
     <div class="time">上次登录时间：{{ lastLoginTime| parseTime() }}</div>
   </el-card>
@@ -30,7 +30,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { toRedirect } from '@/utils/index'
 
 export default {
   data() {
@@ -54,8 +53,6 @@ export default {
     if (this.showAccount) this.$store.dispatch('user/GetAccountBalance')
   },
   methods: {
-    // 跳转页面
-    handelRedirect: toRedirect
   }
 }
 </script>

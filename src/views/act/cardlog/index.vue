@@ -25,7 +25,7 @@
         <div class="user-avater">
           <img :src="props.scope.row.user.avatar">
           <span>{{ props.scope.row.user.nickname }}</span>
-          <span class="user" @click="searchUser(props.scope.row.user.id)"> {{ '（' + props.scope.row.user.id + '）' }}</span>
+          <span class="user" @click="toRedirect('ActivityActuser', { user_id: props.scope.row.user.id })"> {{ '（' + props.scope.row.user.id + '）' }}</span>
         </div>
       </template>
       <!-- 手机号 -->
@@ -47,7 +47,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { toRedirect } from '@/utils'
 import { apiBtn } from '@/api/default'
 
 export default {
@@ -93,10 +92,6 @@ export default {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
         })
-    },
-    // 查看用户信息
-    searchUser(id) {
-      toRedirect('ActivityActuser', { user_id: id })
     },
     initPagination() {
       this.pagination = {
