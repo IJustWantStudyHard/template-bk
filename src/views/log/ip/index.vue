@@ -61,7 +61,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogLogin',
@@ -120,7 +119,7 @@ export default {
     getList(pagination) {
       if (pagination) this.pagination = { ...pagination }
       else this.initPagination()
-      apiBtn('IpIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
+      this.apiBtn('IpIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
         .then((res) => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -138,7 +137,7 @@ export default {
     },
     handelDel(row) {
       this.defalultConfirm('删除IP：' + row.ip, () => {
-        apiBtn('IpDestroy', { id: row.id })
+        this.apiBtn('IpDestroy', { id: row.id })
           .then((res) => {
             this.getList()
           })
@@ -149,7 +148,7 @@ export default {
         this.$message('请先选择，类型并填写IP')
         return
       }
-      apiBtn('IpStore', { ...this.form })
+      this.apiBtn('IpStore', { ...this.form })
         .then((res) => {
           this.getList()
           this.form.ip = ''
@@ -158,7 +157,7 @@ export default {
     // 解封用户
     ipRelieve(row) {
       this.defalultConfirm('解封IP：' + row.ip + '下所有用户', () => {
-        apiBtn('IpRelieve', { ip: row.ip })
+        this.apiBtn('IpRelieve', { ip: row.ip })
       })
     }
   }

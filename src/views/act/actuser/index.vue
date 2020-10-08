@@ -57,7 +57,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'UserList',
@@ -129,7 +128,7 @@ export default {
   methods: {
     // 用户列表
     getUserList() {
-      apiBtn('ActuserIndex', {
+      this.apiBtn('ActuserIndex', {
         page: this.pagination.page,
         size: this.pagination.size,
         ...this.otherSearch,
@@ -146,7 +145,7 @@ export default {
     },
     handleClick(row) {
       this.defalultConfirm(row.robot === 0 ? '标记该用户' : '解除标记该用户', () => {
-        apiBtn('ActuserUpdate', { id: row.userId, robot: row.robot === 0 ? 1 : 0 })
+        this.apiBtn('ActuserUpdate', { id: row.userId, robot: row.robot === 0 ? 1 : 0 })
           .then((res) => {
             row.robot = res.data.robot
           })

@@ -32,7 +32,7 @@
       <template v-slot:btn>
         <div class="select-box">
           <el-cascader v-if="isAgent && formSearch.role_id === 9" v-model="agentSelect" :options="selectList" :props="selectProps" filterable clearable placeholder="请选择代理">
-            <template slot-scope="{ node, data }">
+            <template slot-scope="{ data }">
               <span>{{ data.username }}</span>
               <span v-if="data.remark"> ({{ data.remark }}) </span>
             </template>
@@ -129,13 +129,12 @@
 </template>
 
 <script>
+import { getCity } from '@/utils/area'
+
 import ComplexTable from '@/components/Table/ComplexTable'
 import LaboureDialog from '@/components/Dialog/LaboureDialog'
 import AgentChangeDialog from '@/components/Dialog/AgentChangeDialog'
-
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
-import { getCity } from '@/utils/area'
 
 export default {
   components: { ComplexTable, DatePicker, LaboureDialog, AgentChangeDialog },
@@ -344,7 +343,7 @@ export default {
     // patch请求
     patchUser(row, msg, params, catchBack) {
       const callBack = () => {
-        apiBtn('AgentPatch', params)
+        this.apiBtn('AgentPatch', params)
           .then(res => {
             if (row) this.blurRemark(row)
           })
@@ -358,7 +357,7 @@ export default {
     deleteUser(name, row) {
       const msg = '此操作将永久删除' + row.username
       const callBack = () => {
-        apiBtn(name, { id: row.id })
+        this.apiBtn(name, { id: row.id })
           .then(res => {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
@@ -379,7 +378,7 @@ export default {
         size: this.pagination.size
       }
       if (!params.agent_id) delete params.agent_id
-      apiBtn('AgentIndex', params).then(res => {
+      this.apiBtn('AgentIndex', params).then(res => {
         // 增加字段isRemark：是否修改备注
         for (var item of res.data.list) {
           item['isRemark'] = false
@@ -399,7 +398,7 @@ export default {
             page: 1
           }
           if (!item.children.length) {
-            apiBtn('AgentIndex', params).then(res => {
+            this.apiBtn('AgentIndex', params).then(res => {
               item.children = res.data.list
             })
           }
@@ -462,7 +461,7 @@ export default {
         ...this.formSearch,
         ...this.otherSearch
       }
-      apiBtn('AgentExport', params)
+      this.apiBtn('AgentExport', params)
         .then(res => {
           // excel数据导出
           require.ensure([], () => {

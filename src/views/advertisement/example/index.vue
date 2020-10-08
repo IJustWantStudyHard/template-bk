@@ -37,8 +37,6 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import ExampleDialog from '@/components/Dialog/ExampleDialog'
 
-import { apiBtn } from '@/api/default'
-
 export default {
   components: { ComplexTable, ExampleDialog },
   data() {
@@ -78,7 +76,7 @@ export default {
     del(name, row) {
       const msg = '此操作将永久删除' + row.name
       const callBack = () => {
-        apiBtn(name, { id: row.id })
+        this.apiBtn(name, { id: row.id })
           .then(res => {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
@@ -90,7 +88,7 @@ export default {
       this.getList()
     },
     getList() {
-      apiBtn('ExampleIndex').then(res => {
+      this.apiBtn('ExampleIndex').then(res => {
         this.tableData = res.data.list
       })
     }

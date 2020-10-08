@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import ComplexTable from '@/components/Table/ComplexTable'
 import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
 import { validateNumber } from '@/utils/validate'
+
+import ComplexTable from '@/components/Table/ComplexTable'
 
 export default {
   components: { ComplexTable },
@@ -129,7 +129,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('MessageIndex', params)
+      this.apiBtn('MessageIndex', params)
         .then(res => {
           for (const item of res.data.list) {
             item.original_like = item.like
@@ -150,7 +150,7 @@ export default {
     deleteItem(row) {
       const msg = '删除后将无法恢复'
       const callback = () => {
-        apiBtn('MessageDestroy', { id: [row.id] })
+        this.apiBtn('MessageDestroy', { id: [row.id] })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)
           })
@@ -168,7 +168,7 @@ export default {
         this.$set(row, 'choose', row.choose = !row.choose)
       }
       const callBack = () => {
-        apiBtn(name, params)
+        this.apiBtn(name, params)
           .then(res => {
             this.$set(row, 'choose', row.choose)
           })
@@ -186,7 +186,7 @@ export default {
         top: !row.top
       }
       const callBack = () => {
-        apiBtn(name, params)
+        this.apiBtn(name, params)
           .then(res => {
             this.$set(row, 'top', !row.top)
           })
@@ -205,7 +205,7 @@ export default {
       }
       // 校验数字且大于0
       if (validateNumber(row.like - 0) && (row.like - 0) >= 0) {
-        apiBtn('MessagePatch', params)
+        this.apiBtn('MessagePatch', params)
           .then(res => {
             this.$set(row, 'original_like', row.like)
             row.edit_like = false

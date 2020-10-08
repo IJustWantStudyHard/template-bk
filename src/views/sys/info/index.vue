@@ -63,13 +63,12 @@
 </template>
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { getCity } from '@/utils/area'
+import { validatePhone } from '@/utils/validate'
 
+import FileManager from '@/components/FileManager/index'
 import Shop from '@/components/Form/Sys/Shop'
 import Service from '@/components/Form/Sys/Service'
-import { apiBtn } from '@/api/default'
-import { getCity } from '@/utils/area'
-import FileManager from '@/components/FileManager/index'
-import { validatePhone } from '@/utils/validate'
 
 export default {
   name: 'BaseInfo',
@@ -168,7 +167,7 @@ export default {
   methods: {
     getInfo() {
       // 获取用户信息
-      apiBtn('AgentShow', { id: this.$store.getters.userId })
+      this.apiBtn('AgentShow', { id: this.$store.getters.userId })
         .then((res) => {
           this.person = { ...res.data }
           this.person.service_code = {
@@ -212,7 +211,7 @@ export default {
               service_code: this.person.service_code.id ? this.person.service_code.id : ''
             }
           }
-          apiBtn('AgentPatch', patchObj)
+          this.apiBtn('AgentPatch', patchObj)
             .then((res) => {
               if (this.showAll) this.$store.commit('user/SET_AVATAR', this.person.avatar.path)
             })
@@ -225,7 +224,7 @@ export default {
     // 获取授权地址并跳转授权
     getURL(name) {
       if (this.isAuth) return
-      apiBtn(name, { admin_id: this.$store.getters.userId })
+      this.apiBtn(name, { admin_id: this.$store.getters.userId })
         .then(res => {
           window.open(res.data)
         })

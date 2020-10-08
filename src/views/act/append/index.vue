@@ -28,7 +28,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { ComplexTable },
@@ -76,7 +75,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('AppendIndex', params)
+      this.apiBtn('AppendIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -88,7 +87,7 @@ export default {
         this.$message('请先填写追加数量')
         return
       }
-      apiBtn('AppendStore', { id: this.otherSearch.id, number: this.number })
+      this.apiBtn('AppendStore', { id: this.otherSearch.id, number: this.number })
         .then(res => {
           this.getList()
         })

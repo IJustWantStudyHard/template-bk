@@ -5,6 +5,7 @@ import { Message } from 'element-ui'
 
 // 按钮请求封装
 export function apiBtn(name, data) {
+  // 未传递请求方法名称
   if (!name) {
     Message({
       message: '按钮名称未传递',
@@ -13,7 +14,7 @@ export function apiBtn(name, data) {
     })
     return Promise.reject('按钮名称未传递')
   }
-
+  // 获取请求内容
   var o = store.getters.permissionBtn[name]
   if (!o || !o.api || !o.method) {
     Message({
@@ -24,6 +25,7 @@ export function apiBtn(name, data) {
     return Promise.reject('API或请求方式不存在')
   }
 
+  // 封装请求参数
   var r = {
     url: o.api,
     method: o.method
@@ -36,7 +38,7 @@ export function apiBtn(name, data) {
     r.url = o.api + '/' + data.id
     delete data['id']
   }
-
+  // 请求
   return request(r)
 }
 

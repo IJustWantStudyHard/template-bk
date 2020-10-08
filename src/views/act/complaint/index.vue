@@ -48,7 +48,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { ComplexTable },
@@ -132,7 +131,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('ComplaintIndex', params)
+      this.apiBtn('ComplaintIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -142,7 +141,7 @@ export default {
     deleteItem(row) {
       const msg = '删除后将无法恢复'
       const callback = () => {
-        apiBtn('ComplaintDestroy', { id: [row.id] })
+        this.apiBtn('ComplaintDestroy', { id: [row.id] })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)
           })
@@ -154,7 +153,7 @@ export default {
         const arr = this.selections.map((i) => { return i.id })
         const msg = '删除后将无法恢复'
         const callback = () => {
-          apiBtn('ComplaintDestroy', { id: arr })
+          this.apiBtn('ComplaintDestroy', { id: arr })
             .then((res) => {
               this.getList()
             })

@@ -34,7 +34,6 @@
 <script>
 import SettingDialog from '@/components/Dialog/SettingDialog' // base on element-ui
 import SettingTable from '@/components/Table/SettingTable' // base on element-ui
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'InlineEditTable',
@@ -56,7 +55,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      apiBtn('SettingsIndex')
+      this.apiBtn('SettingsIndex')
         .then(response => {
           this.defaultList = this.traversingList(response.data)
           this.listLoading = false
@@ -97,7 +96,7 @@ export default {
     },
     // 生效设置
     refresh() {
-      apiBtn('SettingsCache')
+      this.apiBtn('SettingsCache')
     }
   }
 }

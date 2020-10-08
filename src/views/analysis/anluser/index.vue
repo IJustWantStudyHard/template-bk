@@ -46,7 +46,7 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
 // import LineChart from '@/components/chart/LineChart'
-import { apiBtn } from '@/api/default'
+
 import { datedifference } from '@/utils'
 export default {
   name: 'CustomerAnalysis',
@@ -111,7 +111,7 @@ export default {
   methods: {
     // 用户列表
     getCustomerList() {
-      apiBtn('AnluserIndex', {
+      this.apiBtn('AnluserIndex', {
         ...this.formSearch,
         ...this.pagination
       }).then((res) => {

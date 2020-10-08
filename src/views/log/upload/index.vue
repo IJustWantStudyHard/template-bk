@@ -61,10 +61,10 @@
 </template>
 
 <script>
+import { deleteArrayById } from '@/utils'
+
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -125,7 +125,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.totaltotal
-      apiBtn('UploadIndex', searchObj).then((res) => {
+      this.apiBtn('UploadIndex', searchObj).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
@@ -135,7 +135,7 @@ export default {
       else {
         var arrId = this.multipleSelection.map((i) => { return i.id })
         this.defalultConfirm('选中图片线上删除后将无法恢复', () => {
-          apiBtn('UploadDestroy', { id: arrId })
+          this.apiBtn('UploadDestroy', { id: arrId })
             .then((res) => {
               this.getPicList()
               this.multipleSelection = []
@@ -145,7 +145,7 @@ export default {
     },
     handleClick(row) {
       this.defalultConfirm('删除' + row.name, () => {
-        apiBtn('UploadDestroy', { id: [row.id] })
+        this.apiBtn('UploadDestroy', { id: [row.id] })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)
           })

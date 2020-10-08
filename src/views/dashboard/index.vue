@@ -36,7 +36,6 @@
 
 <script>
 import { TipCard, BoxCard, PanelGroup, PanelReview, ManageInfo } from '@/components/Dashboard/index'
-import { apiBtn } from '@/api/default.js'
 
 export default {
   name: 'Dashboard',
@@ -78,7 +77,7 @@ export default {
     }
   },
   created() {
-    apiBtn('Dashboard').then((res) => {
+    this.apiBtn('Dashboard').then((res) => {
       // 系统公告列表
       this.tip = res.data.tip
       this.panel = { ...res.data.panel }

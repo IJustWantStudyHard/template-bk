@@ -58,7 +58,6 @@
 
 <script>
 import PageTable from '@/components/Table/PageTable'
-import { apiBtn } from '@/api/default'
 // import QRCode from 'qrcode'
 
 export default {
@@ -85,7 +84,7 @@ export default {
     if (this.$route.query.state) {
       if (this.$route.query.code) {
         // 向后台发送code 余下的操作由后台进行
-        apiBtn('WxStore', { state: this.$route.query.state, code: this.$route.query.code })
+        this.apiBtn('WxStore', { state: this.$route.query.state, code: this.$route.query.code })
           .then(() => {
             this.getList()
           })
@@ -111,7 +110,7 @@ export default {
     },
     binding(index, str, state) {
       this.defalultConfirm(`${str}${this.tableData[index].user.nickname}的微信到您的帐号`, () => {
-        apiBtn('WxUpdate', { id: this.tableData[index].user.userId, state })
+        this.apiBtn('WxUpdate', { id: this.tableData[index].user.userId, state })
           .then(() => {
             // 重新获取页面列表
             this.getList()
@@ -119,7 +118,7 @@ export default {
       })
     },
     DelAccountBinding(index) {
-      apiBtn('WxDestroy', { id: this.tableData[index].user.userId })
+      this.apiBtn('WxDestroy', { id: this.tableData[index].user.userId })
         .then(() => {
           // 重新获取页面列表
           this.getList()
@@ -127,7 +126,7 @@ export default {
     },
     getList() {
       // 获取绑定的微信用户的列表信息
-      apiBtn('WxIndex')
+      this.apiBtn('WxIndex')
         .then((res) => {
           this.tableData = res.data
         })

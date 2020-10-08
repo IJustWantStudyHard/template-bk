@@ -53,7 +53,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogBusiness',
@@ -157,7 +156,7 @@ export default {
           total: 0
         }
       }
-      apiBtn('BusinessIndex', {
+      this.apiBtn('BusinessIndex', {
         page: this.pagination.page, size: this.pagination.size,
         ...this.formSearch
       }).then((res) => {

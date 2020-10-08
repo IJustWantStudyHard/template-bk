@@ -82,7 +82,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -172,7 +171,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('CashIndex', this.removeProperty({ ...searchObj })).then((res) => {
+      this.apiBtn('CashIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
@@ -194,7 +193,7 @@ export default {
       })
     },
     patch(data, row) {
-      apiBtn('CashPatch', data)
+      this.apiBtn('CashPatch', data)
         .then((res) => {
           row.status = res.data.status
         }).catch((res) => {
@@ -221,7 +220,7 @@ export default {
         ...this.formSearch,
         ...this.otherSearch
       }
-      apiBtn('CashExport', params)
+      this.apiBtn('CashExport', params)
         .then(res => {
           // excel数据导出
           require.ensure([], () => {

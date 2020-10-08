@@ -42,7 +42,6 @@
 </template>
 <script>
 import AuthorityTree from '@/components/Tree/AuthorityTree'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'RoleDialog',
@@ -122,7 +121,7 @@ export default {
       this.$emit('setAuthority', this.$refs.child.getCheckedKeys())
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          apiBtn(this.type === 1 ? 'RoleStore' : 'RoleUpdate', { ...this.roleForm })
+          this.apiBtn(this.type === 1 ? 'RoleStore' : 'RoleUpdate', { ...this.roleForm })
             .then(res => {
               //  为this.roleForm修改数据
               this.$emit(this.type === 1 ? 'addRoleList' : 'updateRoleList', res.data)
@@ -133,7 +132,7 @@ export default {
     },
     getTreeData() {
       // 获取所有权限加载tree
-      apiBtn('AuthorityIndex')
+      this.apiBtn('AuthorityIndex')
         .then(response => {
           this.treeData = response.data
         })

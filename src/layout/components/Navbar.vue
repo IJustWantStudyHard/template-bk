@@ -70,7 +70,6 @@
 import { mapGetters, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: {
@@ -132,7 +131,7 @@ export default {
       const callBack = () => {
         sessionStorage.clear()
         localStorage.clear()
-        apiBtn('OpenClear')
+        this.apiBtn('OpenClear')
           .then(res => {
             this.refreshUserInfo()
           })

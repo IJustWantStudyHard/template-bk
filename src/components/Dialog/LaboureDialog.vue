@@ -47,7 +47,6 @@
   </el-dialog>
 </template>
 <script>
-import { apiBtn } from '@/api/default'
 import { getCity } from '@/utils/area'
 
 export default {
@@ -128,7 +127,7 @@ export default {
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          apiBtn('AgentLabourStore', { id: this.user.id, money: this.form.money })
+          this.apiBtn('AgentLabourStore', { id: this.user.id, money: this.form.money })
             .then(res => {
               if (res) {
                 this.step = 1
@@ -140,7 +139,7 @@ export default {
     },
     // 二次确认
     confirm() {
-      apiBtn('AgentLabourUpdate', { id: this.user.id, ...this.order })
+      this.apiBtn('AgentLabourUpdate', { id: this.user.id, ...this.order })
         .then(res => {
           this.$emit('success', res.data.balance)
           this.resetForm()

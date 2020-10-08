@@ -91,7 +91,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'UserInfoDetail',
@@ -130,7 +129,7 @@ export default {
     }
   },
   created() {
-    apiBtn('AgentShow', { id: this.$route.query.id })
+    this.apiBtn('AgentShow', { id: this.$route.query.id })
       .then((res) => {
         this.data = res.data
       })
@@ -143,7 +142,7 @@ export default {
     // 通过驳回方法
     handlePass(status) {
       this.defalultConfirm(this.statusType[status] + '该用户的用户信息', () => {
-        apiBtn('AgentCheck', { id: this.data.id, review: status })
+        this.apiBtn('AgentCheck', { id: this.data.id, review: status })
           .then((res) => {
             this.data.review = status
           })

@@ -39,13 +39,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Shop from '@/components/Form/Sys/Shop'
 import UserBaseInfo from '@/components/Form/Sys/UserBaseInfo'
 import UserNature from '@/components/Form/Sys/UserNature'
 import UserPassword from '@/components/Form/Sys/UserPassword'
-import { apiBtn } from '@/api/default'
-
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'InfoStore',
@@ -91,7 +90,7 @@ export default {
   created() {
     // 获取用户信息 仅驳回可见
     if (this.review === 3) {
-      apiBtn('AgentShow', { id: this.$store.getters.userId })
+      this.apiBtn('AgentShow', { id: this.$store.getters.userId })
         .then((res) => {
           this.baseData = { ...this.baseData, ...res.data }
 
@@ -132,7 +131,7 @@ export default {
           service_code: this.baseData.service_code.id,
           is_first: 1
         }
-        apiBtn('AgentPatch', obj)
+        this.apiBtn('AgentPatch', obj)
           .then((res) => {
             // 完善基本信息 不需要重新登录
             this.$store.commit('user/SET_REVIEW', 1)
@@ -157,7 +156,7 @@ export default {
     // 修改密码
     passwordSubmit() {
       if (this.$refs.passwordChild.validateForm()) {
-        apiBtn('AgentPatch', {
+        this.apiBtn('AgentPatch', {
           id: this.$store.getters.userId,
           cupassword: this.passwordData.cupassword,
           password: this.passwordData.password,

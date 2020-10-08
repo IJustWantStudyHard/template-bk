@@ -46,7 +46,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogLogin',
@@ -102,7 +101,7 @@ export default {
     getLogList(pagination) {
       if (pagination) this.pagination = { ...pagination }
       else this.initPagination()
-      apiBtn('LoginIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
+      this.apiBtn('LoginIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
         .then((res) => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total

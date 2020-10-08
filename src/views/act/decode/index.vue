@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
+
 export default {
   name: 'Decode',
   data() {
@@ -47,7 +47,7 @@ export default {
     // 请求
     handlerSubmit() {
       if (this.code) {
-        apiBtn('DecodeStore', { code: this.code })
+        this.apiBtn('DecodeStore', { code: this.code })
           .then((res) => {
             this.result = res.data
           })

@@ -81,7 +81,7 @@
   </el-form>
 </template>
 <script>
-import { apiBtn } from '@/api/default'
+
 import {
   validatMixRegular,
   validateNumber,
@@ -240,7 +240,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          apiBtn(this.type === 1 ? 'AuthorityStore' : 'AuthorityUpdate', { ...this.formAuthority })
+          this.apiBtn(this.type === 1 ? 'AuthorityStore' : 'AuthorityUpdate', { ...this.formAuthority })
             .then(res => {
               // 所属权限改变刷新tree
               if (this.needRefresh && this.type === 2) {
@@ -259,7 +259,7 @@ export default {
     // 删除权限
     deleteForm() {
       this.defalultConfirm('此操作将永久删除该权限', () => {
-        apiBtn('AuthorityDestroy', { id: this.formAuthority.id })
+        this.apiBtn('AuthorityDestroy', { id: this.formAuthority.id })
           .then(res => {
             // 为this.data删除数据
             this.$emit('deleteAuthorityList')

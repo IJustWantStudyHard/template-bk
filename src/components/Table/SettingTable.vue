@@ -50,7 +50,6 @@
 <script>
 import UploadDefault from '@/components/Upload/UploadDefault'
 import PageTable from '@/components/Table/PageTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'SettingTable',
@@ -104,7 +103,7 @@ export default {
           id: row.id
         }
         obj[type] = row[type]
-        apiBtn('SettingsUpdate', obj)
+        this.apiBtn('SettingsUpdate', obj)
           .then(res => {
             // 修改成功则修改备份数据
             row['edit' + type] = false
@@ -125,7 +124,7 @@ export default {
         row.path = ''
         return
       }
-      apiBtn('SettingsUpdate', { id: row.id, value: obj.id })
+      this.apiBtn('SettingsUpdate', { id: row.id, value: obj.id })
         .then(res => {
           // 上传成功修改图片的value(id)以及value对应的upload图片对象
           row.value = res.data.value

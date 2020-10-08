@@ -34,8 +34,6 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import AdDialog from '@/components/Dialog/AdDialog'
 
-import { apiBtn } from '@/api/default'
-
 export default {
   name: 'Ad',
   components: { ComplexTable, AdDialog },
@@ -89,7 +87,7 @@ export default {
     del(name, row) {
       const msg = '此操作将永久删除' + row.link_name
       const callBack = () => {
-        apiBtn(name, { id: row.id })
+        this.apiBtn(name, { id: row.id })
           .then(res => {
             this.tableData.splice(this.tableData.indexOf(row), 1)
           })
@@ -98,7 +96,7 @@ export default {
     },
     setting(name, row) {
       if (row.is_default) return
-      apiBtn(name, { id: row.id, is_default: 1 })
+      this.apiBtn(name, { id: row.id, is_default: 1 })
         .then(res => {
           this.getList()
         })
@@ -110,7 +108,7 @@ export default {
     getList(pagination) {
       if (pagination) this.pagination = { ...pagination }
       else this.initPagination()
-      apiBtn('AdIndex', { ...this.pagination, ...this.formSearch }).then(res => {
+      this.apiBtn('AdIndex', { ...this.pagination, ...this.formSearch }).then(res => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })

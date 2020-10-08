@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import AuthorityForm from '@/components/Form/AuthorityForm' // base on element-ui
-import AuthorityTree from '@/components/Tree/AuthorityTree'
 import { getAGroupOption, getAPageOption } from '@/utils/authority'
 import { addArrayById, modifyArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
+
+import AuthorityForm from '@/components/Form/AuthorityForm' // base on element-ui
+import AuthorityTree from '@/components/Tree/AuthorityTree'
 
 export default {
   name: 'Authority',
@@ -143,7 +143,7 @@ export default {
     },
     loadList() {
       // 权限列表
-      apiBtn('AuthorityIndex')
+      this.apiBtn('AuthorityIndex')
         .then(response => {
           this.data = response.data
           this.aGroupOption = getAGroupOption(this.data)

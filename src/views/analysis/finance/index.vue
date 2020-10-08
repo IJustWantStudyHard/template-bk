@@ -54,7 +54,7 @@
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
 // import LineChart from '@/components/chart/LineChart'
-import { apiBtn } from '@/api/default'
+
 import { datedifference } from '@/utils'
 export default {
   name: 'FinanceAnalysis',
@@ -132,7 +132,7 @@ export default {
   methods: {
     // 用户列表
     getFinanceList() {
-      apiBtn('FinanceIndex',
+      this.apiBtn('FinanceIndex',
         { ...this.formSearch, ...this.pagination })
         .then((res) => {
           this.tableData = res.data.list

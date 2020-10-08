@@ -63,10 +63,10 @@
 </template>
 
 <script>
+import { deleteArrayById, modifyArrayById, addArrayToLast } from '@/utils'
+
 import ComplexTable from '@/components/Table/ComplexTable'
 import RoleDialog from '@/components/Dialog/RoleDialog' // base on element-ui
-import { deleteArrayById, modifyArrayById, addArrayToLast } from '@/utils'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'Role',
@@ -144,7 +144,7 @@ export default {
     loadList() {
       // 页面table加载
       this.listLoading = true
-      apiBtn('RoleIndex')
+      this.apiBtn('RoleIndex')
         .then(response => {
           this.roleList = response.data
           this.listLoading = false
@@ -168,7 +168,7 @@ export default {
     deleteRole(row) {
       // 删除角色
       this.defalultConfirm('此操作将永久删除该角色', () => {
-        apiBtn('RoleDestroy', { id: row.id })
+        this.apiBtn('RoleDestroy', { id: row.id })
           .then(res => {
             // 为this.roleList删除数据
             deleteArrayById(this.roleList, row.id)
@@ -178,7 +178,7 @@ export default {
     disableRole(row) {
       // 禁用羽解除禁用的事件 使用update的方法
       this.defalultConfirm((row.state === 1 ? '启用' : '禁用') + row.name, () => {
-        apiBtn('RolePatch', { id: row.id, state: row.state })
+        this.apiBtn('RolePatch', { id: row.id, state: row.state })
           // 失败则还原状态
           .catch(() => { row.state = (row.state === 1 ? 0 : 1) })
       }, () => { row.state = (row.state === 1 ? 0 : 1) })

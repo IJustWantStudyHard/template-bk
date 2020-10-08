@@ -58,7 +58,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -146,7 +145,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('PaymentIndex', this.removeProperty({ ...searchObj })).then((res) => {
+      this.apiBtn('PaymentIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
@@ -155,7 +154,7 @@ export default {
       this.defalultConfirm(`将要关闭订单${row.out_trade_no},是否继续？`, () => {
         console.log('in')
         // status 1成功 0关闭
-        apiBtn('PaymentEnd', { out_trade_no: row.out_trade_no, status: 0 })
+        this.apiBtn('PaymentEnd', { out_trade_no: row.out_trade_no, status: 0 })
           .then((res) => {
             row.status = res.data.status
           }).catch((res) => {
@@ -183,7 +182,7 @@ export default {
         ...this.formSearch,
         ...this.otherSearch
       }
-      apiBtn('PaymentExport', params)
+      this.apiBtn('PaymentExport', params)
         .then(res => {
           // excel数据导出
           require.ensure([], () => {

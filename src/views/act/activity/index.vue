@@ -107,10 +107,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ComplexTable from '@/components/Table/ComplexTable.vue'
-import { apiBtn } from '@/api/default'
-import { deleteArrayById } from '@/utils/index'
 import QRCode from 'qrcode'
+import { deleteArrayById } from '@/utils/index'
+
+import ComplexTable from '@/components/Table/ComplexTable.vue'
 import VideoDialog from '@/components/Dialog/VideoDialog'
 
 export default {
@@ -249,7 +249,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('ActivityIndex', params)
+      this.apiBtn('ActivityIndex', params)
         .then(res => {
           const list = res.data.list
           for (const item of list) {
@@ -271,7 +271,7 @@ export default {
         this.$set(row, 'switch', row.switch = row.status)
       }
       const callBack = () => {
-        apiBtn(name, params)
+        this.apiBtn(name, params)
           .then(res => {
             this.$set(row, 'status', row.status === 2 ? 4 : 2)
             if (row.status === 2 && row.card_probability < 100 && row.total_money < 0.3) {
@@ -297,7 +297,7 @@ export default {
           h('span', { style: 'color: red' }, '请再次确认是否结算？（注：活动结算后将无法修改和再次开启）')
         ])
       }).then(() => {
-        apiBtn(name, { id: row.id, close_account: 1 })
+        this.apiBtn(name, { id: row.id, close_account: 1 })
           .then(res => {
             this.$set(row, 'status', 4)
             this.$set(row, 'close_account', row.close_account ? 0 : 1)
@@ -312,7 +312,7 @@ export default {
         id: row.id
       }
       const callBack = () => {
-        apiBtn(name, params)
+        this.apiBtn(name, params)
           .then(res => {
             deleteArrayById(this.tableData, row.id)
           })

@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default.js'
 import DatePicker from '@/components/Tool/DatePicker'
 
 export default {
@@ -69,7 +68,7 @@ export default {
   },
   created() {
     // 初始化 根据卡劵id向后台请求数据 并格式化数据为指定格式
-    apiBtn('CardShow', { id: this.$route.query.id })
+    this.apiBtn('CardShow', { id: this.$route.query.id })
       .then((res) => {
         this.card = res.data
         this.time = this.card.end_timestamp
@@ -78,7 +77,7 @@ export default {
   methods: {
     // 提交事件
     submit() {
-      apiBtn('CardUpdate', { id: this.$route.query.id, type: 5, date_type: 1, end_timestamp: this.card.end_timestamp, service_phone: this.card.service_phone })
+      this.apiBtn('CardUpdate', { id: this.$route.query.id, type: 5, date_type: 1, end_timestamp: this.card.end_timestamp, service_phone: this.card.service_phone })
         .then((res) => {
           this.$router.push({ path: '/act/card' })
         })

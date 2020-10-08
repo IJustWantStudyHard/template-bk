@@ -44,7 +44,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default.js'
 
 export default {
   name: 'UserList',
@@ -144,7 +143,7 @@ export default {
           total: 0
         }
       }
-      apiBtn('CardIndex', {
+      this.apiBtn('CardIndex', {
         ...this.pagination,
         ...this.formSearch })
         .then((res) => {
@@ -155,7 +154,7 @@ export default {
     // 删除卡劵
     delCard(row) {
       this.defalultConfirm('删除卡劵' + row.id, () => {
-        apiBtn('CardDestroy', { id: row.id, card_id: row.card_id })
+        this.apiBtn('CardDestroy', { id: row.id, card_id: row.card_id })
           .then((res) => {
             deleteArrayById(this.cardList, row.id)
           })

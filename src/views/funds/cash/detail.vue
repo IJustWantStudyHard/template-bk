@@ -29,7 +29,6 @@
   </div>
 </template>
 <script>
-import { apiBtn } from '@/api/default'
 
 export default {
   data() {
@@ -169,7 +168,7 @@ export default {
       return '156'.includes(this.$store.getters.roles[0]) && status === 1
     },
     getInfo() {
-      apiBtn('CashShow', { id: this.$route.query.id }).then((res) => {
+      this.apiBtn('CashShow', { id: this.$route.query.id }).then((res) => {
         res.data.cash.type = this.typeOptions[res.data.cash.type]
         res.data.cash.add_time = this.parseTime(res.data.cash.add_time)
         this.data = res.data
@@ -186,7 +185,7 @@ export default {
         3: '驳回审核'
       }
       this.defalultConfirm(obj[status], () => {
-        apiBtn('CashPatch', { id: this.data.cash.id, status })
+        this.apiBtn('CashPatch', { id: this.data.cash.id, status })
           .then((res) => {
             this.data.cash.status = res.data.status
           }).catch((res) => {

@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import ComplexTable from '@/components/Table/ComplexTable'
 import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
+
+import ComplexTable from '@/components/Table/ComplexTable'
 
 export default {
   components: { ComplexTable },
@@ -90,7 +90,7 @@ export default {
         page: this.pagination.page
       }
       if (this.otherSearch.act_id) params.act_id = this.otherSearch.act_id
-      apiBtn('ReserveIndex', params)
+      this.apiBtn('ReserveIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -100,7 +100,7 @@ export default {
     deleteItem(row) {
       const msg = '删除后将无法恢复'
       const callback = () => {
-        apiBtn('ReserveDestroy', { id: [row.id] })
+        this.apiBtn('ReserveDestroy', { id: [row.id] })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)
           })
@@ -120,7 +120,7 @@ export default {
         this.$message('暂无数据，无法导出')
         return
       }
-      apiBtn('ReserveExport', this.otherSearch)
+      this.apiBtn('ReserveExport', this.otherSearch)
         .then(res => {
           // excel数据导出
           require.ensure([], () => {

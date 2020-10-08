@@ -78,9 +78,9 @@
 </template>
 
 <script>
-import PageTable from '@/components/Table/PageTable'
-import { apiBtn } from '@/api/default'
 import QRCode from 'qrcode'
+
+import PageTable from '@/components/Table/PageTable'
 
 export default {
   name: 'WriterWeixinBind',
@@ -111,7 +111,7 @@ export default {
     },
     binding(index, str, status) {
       this.defalultConfirm(`${str}${this.tableData[index].user.nickname}核销员`, () => {
-        apiBtn('AuditorPatch', { id: this.tableData[index].id, status })
+        this.apiBtn('AuditorPatch', { id: this.tableData[index].id, status })
           .then(() => {
             // 重新获取页面列表
             this.getList()
@@ -119,7 +119,7 @@ export default {
       })
     },
     DelAccountBinding(index) {
-      apiBtn('WxDestroy', { id: this.tableData[index].user.userId })
+      this.apiBtn('WxDestroy', { id: this.tableData[index].user.userId })
         .then(() => {
           // 重新获取页面列表
           this.getList()
@@ -127,7 +127,7 @@ export default {
     },
     getList() {
       // 获取绑定的微信用户的列表信息
-      apiBtn('AuditorList')
+      this.apiBtn('AuditorList')
         .then((res) => {
           this.tableData = res.data
         })
@@ -136,7 +136,7 @@ export default {
       // this.defalultConfirm('正在绑定核销员', () => {
 
       // })
-      apiBtn('GetWechatLink')
+      this.apiBtn('GetWechatLink')
         .then((res) => {
           this.getQrcode(res.data)
           this.dialogVisible = true

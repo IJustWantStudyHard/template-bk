@@ -60,7 +60,6 @@
   </div>
 </template>
 <script>
-import { apiBtn } from '@/api/default'
 import QRCode from 'qrcode'
 
 export default {
@@ -85,7 +84,7 @@ export default {
       if (!this.money) this.$message('请输入充值金额')
       // this.step = 1
       // this.getQrcode(this.order.code_url)
-      apiBtn('PaymentOrder', { money: this.money })
+      this.apiBtn('PaymentOrder', { money: this.money })
         .then((res) => {
           this.step = 1
           this.order.out_trade_no = res.data.orderId
@@ -98,7 +97,7 @@ export default {
     },
     // 扫码支付成功  status 1成功 0关闭
     racharge(status) {
-      apiBtn('PaymentEnd', { out_trade_no: this.order.out_trade_no, status })
+      this.apiBtn('PaymentEnd', { out_trade_no: this.order.out_trade_no, status })
         .then((res) => {
           this.$router.push('/funds/payment')
         })

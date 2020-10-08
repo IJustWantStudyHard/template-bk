@@ -31,7 +31,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { ComplexTable },
@@ -82,7 +81,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('PrestoredIndex', params)
+      this.apiBtn('PrestoredIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -94,7 +93,7 @@ export default {
         this.$message('请先填写充值金额')
         return
       }
-      apiBtn('PrestoredStore', { id: this.otherSearch.id, money: this.money })
+      this.apiBtn('PrestoredStore', { id: this.otherSearch.id, money: this.money })
         .then(res => {
           console.log(res)
           this.$store.commit('user/SET_MONEY', res.data.balance)

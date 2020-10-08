@@ -53,7 +53,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -126,7 +125,7 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('AdminIndex', searchObj).then((res) => {
+      this.apiBtn('AdminIndex', searchObj).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })

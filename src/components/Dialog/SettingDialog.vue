@@ -41,8 +41,8 @@
 </template>
 <script>
 import { validatEnRegular, validatMixRegular } from '@/utils/validate'
-import { apiBtn } from '@/api/default'
 import UploadDefault from '@/components/Upload/UploadDefault'
+
 export default {
   name: 'SettingDialog',
   components: { UploadDefault },
@@ -139,7 +139,7 @@ export default {
             value: this.settingForm.type === 2 ? this.settingForm.pic : this.settingForm.text,
             type: this.settingForm.type
           }
-          apiBtn('SettingsStore', obj)
+          this.apiBtn('SettingsStore', obj)
             .then(res => {
               //  为this.roleForm修改数据
               this.$emit('addSettingList', res.data)

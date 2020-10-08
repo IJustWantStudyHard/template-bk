@@ -83,7 +83,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import Bus from '@/utils/bus'
-import { apiBtn } from '@/api/default.js'
 
 export default {
   data() {
@@ -176,7 +175,7 @@ export default {
     // 获取卡劵列表
     getCardList() {
       if (this.couponList.length > 0) return
-      apiBtn('CardIndex', { page: 1, size: 10000, status: 3 })
+      this.apiBtn('CardIndex', { page: 1, size: 10000, status: 3 })
         .then((res) => {
           this.couponList = res.data.list
         })

@@ -110,12 +110,12 @@
 </template>
 
 <script>
-import Service from '@/components/Form/Sys/Service'
-import { apiBtn } from '@/api/default'
 import { validatMixRegular, validatPwdEasy, validatePositiveInteger } from '@/utils/validate'
 import { getCity } from '@/utils/area'
-import DatePicker from '@/components/Tool/DatePicker'
 import { getAreaStorage } from '@/utils/storage'
+
+import Service from '@/components/Form/Sys/Service'
+import DatePicker from '@/components/Tool/DatePicker'
 
 export default {
   components: { DatePicker, Service },
@@ -549,14 +549,14 @@ export default {
     },
     // 获取客服列表
     getAgentList() {
-      apiBtn('AgentIndex', { page: 1, size: 100, role_id: 5 }).then(res => {
+      this.apiBtn('AgentIndex', { page: 1, size: 100, role_id: 5 }).then(res => {
         this.agentList = res.data.list
       })
     },
     // 1.获取用户信息；2.当用户为代理时，角色默认值为门店
     getUserInfo() {
       if (this.id) {
-        apiBtn('AgentShow', { id: this.id })
+        this.apiBtn('AgentShow', { id: this.id })
           .then(res => {
             this.userInfo = res.data
             this.userInfo.service_code = {
@@ -615,7 +615,7 @@ export default {
       if (this.validateForm() && (this.id || (!this.id && this.agreePwd))) {
         var data = { ...this.userInfo }
         data.service_code = data.service_code.id
-        apiBtn(name, data)
+        this.apiBtn(name, data)
           .then(res => {
             this.cancel()
           })

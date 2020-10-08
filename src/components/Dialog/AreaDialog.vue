@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
+
 import { validateNumber, validatChinese } from '@/utils/validate'
 
 export default {
@@ -131,7 +131,7 @@ export default {
         id: Number(this.currentForm.id),
         name: this.currentForm.name
       }
-      apiBtn(this.name, params)
+      this.apiBtn(this.name, params)
         .then(res => {
           this.$store.commit('area/APPEND_AREA', params)
           this.toggleDialog()
@@ -153,7 +153,7 @@ export default {
           name: this.currentForm.name,
           newId: Number(this.currentForm.id)
         }
-        apiBtn(this.name, { ...params })
+        this.apiBtn(this.name, { ...params })
           .then(res => {
             this.$store.commit('area/UPDATE_AREA', params)
             this.toggleDialog()

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
 import FileManager from '@/components/FileManager'
 
 export default {
@@ -79,7 +78,7 @@ export default {
         if (valid) {
           const obj = { ...this.exampleForm }
           obj.path = obj.path.id
-          apiBtn(this.exampleForm.id ? 'ExampleUpdate' : 'ExampleStore', obj)
+          this.apiBtn(this.exampleForm.id ? 'ExampleUpdate' : 'ExampleStore', obj)
             .then(res => {
               this.toggleDialog()
               this.$emit('success')

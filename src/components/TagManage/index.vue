@@ -27,7 +27,7 @@
       <el-dialog :visible.sync="isDialogVisible" :fullscreen="$store.state.app.device === 'mobile' ? true : false" title="标签管理" width="60%">
         <page-table :table-header="tableHeader" :table-data="tagOption" :has-pagination="false">
           <!-- 操作 -->
-          <template v-slot:action="props">
+          <template v-slot:action="slotProps">
             <el-button type="warning" size="small" @click="delTag(slotProps.scope.row)">删除</el-button>
           </template>
         </page-table>
@@ -37,7 +37,6 @@
 </template>
 <script>
 import PageTable from '@/components/Table/PageTable'
-import { apiBtn } from '@/api/default'
 import { deleteArrayById } from '@/utils'
 
 // 系统公告标签组管理
@@ -84,7 +83,7 @@ export default {
   methods: {
     // 获取标签
     getOption() {
-      apiBtn('TagIndex').then((res) => {
+      this.apiBtn('TagIndex').then((res) => {
         this.tagOption = res.data
       })
     },
@@ -95,7 +94,7 @@ export default {
     // 删除标签
     delTag(row) {
       this.defalultConfirm('删除' + row.name, () => {
-        apiBtn('TagDestroy', { id: row.id })
+        this.apiBtn('TagDestroy', { id: row.id })
           .then((res) => {
             deleteArrayById(this.tagOption, row.id)
             this.synDel(row.name)

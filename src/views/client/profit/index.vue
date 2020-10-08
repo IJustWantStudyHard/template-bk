@@ -28,10 +28,10 @@
 </template>
 
 <script>
+import { getCity } from '@/utils/area'
+
 import DatePicker from '@/components/Tool/DatePicker'
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
-import { getCity } from '@/utils/area'
 
 export default {
   name: 'Profit',
@@ -71,7 +71,7 @@ export default {
   methods: {
     // 用户列表
     getList() {
-      apiBtn('ProfitIndex', this.formSearch)
+      this.apiBtn('ProfitIndex', this.formSearch)
         .then(response => {
           this.profitList = response.data
         })

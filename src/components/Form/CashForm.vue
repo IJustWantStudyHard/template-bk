@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import { validatePhone } from '@/utils/validate'
-import { apiBtn } from '@/api/default'
 import QRCode from 'qrcode'
+
+import { validatePhone } from '@/utils/validate'
 
 export default {
   data() {
@@ -140,7 +140,7 @@ export default {
         })
     },
     getWxList() {
-      apiBtn('WxCash')
+      this.apiBtn('WxCash')
         .then((res) => {
           if (res.data.length === 0) {
             this.$message('您还未绑定微信号，请先绑定微信号，再提现')
@@ -152,7 +152,7 @@ export default {
     handelClick: function() {
       this.$refs['form'].validate(valid => {
         if (valid) {
-          apiBtn('CashStore', { ...this.form })
+          this.apiBtn('CashStore', { ...this.form })
             .then((res) => {
               this.$router.go(-1)
               this.getBalance()

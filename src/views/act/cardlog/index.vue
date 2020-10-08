@@ -47,7 +47,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { ComplexTable },
@@ -87,7 +86,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('CardlogIndex', params)
+      this.apiBtn('CardlogIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total

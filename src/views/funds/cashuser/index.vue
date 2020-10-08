@@ -43,7 +43,6 @@
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -102,13 +101,13 @@ export default {
         ...this.otherSearch
       }
       delete searchObj.total
-      apiBtn('CashuserIndex', this.removeProperty({ ...searchObj })).then((res) => {
+      this.apiBtn('CashuserIndex', this.removeProperty({ ...searchObj })).then((res) => {
         this.tableData = res.data.list
         this.pagination.total = res.data.total
       })
     },
     patch(data, row) {
-      apiBtn('CashPatch', data)
+      this.apiBtn('CashPatch', data)
         .then((res) => {
           row.status = res.data.status
         }).catch((res) => {

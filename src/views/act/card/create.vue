@@ -46,8 +46,6 @@
 
 <script>
 import { MerchantForm, CardSample, elseForm } from '@/components/Form/Card/index.js'
-import { apiBtn } from '@/api/default.js'
-import { setTimeout } from 'timers'
 
 export default {
   // 组件被渲染前
@@ -113,7 +111,7 @@ export default {
           if (this.$refs.cardSample.validateForm() & this.$refs.cardSample.validateForm()) {
             this.card.begin_timestamp = this.card.timestamp[0]
             this.card.end_timestamp = this.card.timestamp[1]
-            apiBtn('CardStore', this.card)
+            this.apiBtn('CardStore', this.card)
               .then((res) => {
                 this.active = 2
                 setTimeout(() => {

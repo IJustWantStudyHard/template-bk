@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
 
 export default {
   props: {
@@ -100,14 +99,14 @@ export default {
   },
   methods: {
     getList() {
-      apiBtn('ExampleIndex', { page: 1, size: 1000 }).then(res => {
+      this.apiBtn('ExampleIndex', { page: 1, size: 1000 }).then(res => {
         this.exampleList = res.data.list
       })
     },
     submit() {
       this.$refs['adForm'].validate(valid => {
         if (valid) {
-          apiBtn(this.form.id ? 'AdUpdate' : 'AdStore', { ...this.adForm })
+          this.apiBtn(this.form.id ? 'AdUpdate' : 'AdStore', { ...this.adForm })
             .then(res => {
               this.toggleDialog()
               this.$emit('success', this.form.link)

@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import { ActivityBase, Share, Red, Else, Directory, Coupon } from '@/components/Form/Act/index'
-import Bus from '@/utils/bus'
 import { mapState, mapMutations, mapActions } from 'vuex'
-import { apiBtn } from '@/api/default'
+import Bus from '@/utils/bus'
+
+import { ActivityBase, Share, Red, Else, Directory, Coupon } from '@/components/Form/Act/index'
 
 export default {
   components: { ActivityBase, Share, Red, Else, Directory, Coupon },
@@ -80,7 +80,7 @@ export default {
     ]),
     // 获取活动详情
     getDetail() {
-      apiBtn('ActivityShow', { id: this.id })
+      this.apiBtn('ActivityShow', { id: this.id })
         .then(res => {
           this.INIT_FORM(res.data)
           this.ACTIVITY_STATUS(res.data.status)
@@ -128,7 +128,7 @@ export default {
       }
     },
     reviewPatch(params) {
-      apiBtn('ActivityPatch', params)
+      this.apiBtn('ActivityPatch', params)
         .then(res => {
           if (!res.status) {
             this.$router.go(-1)

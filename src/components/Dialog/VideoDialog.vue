@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
 
 export default {
   props: {
@@ -56,7 +55,7 @@ export default {
   methods: {
     getList() {
       if (this.$_has('AdIndex')) {
-        apiBtn('AdIndex', { page: 1, size: 1000 }).then(res => {
+        this.apiBtn('AdIndex', { page: 1, size: 1000 }).then(res => {
           this.linkList = res.data.list
         })
       }
@@ -66,7 +65,7 @@ export default {
         this.$message('请先选择链接')
         return
       }
-      apiBtn('ActivityVideo', { id: this.row.id, link: this.form.link })
+      this.apiBtn('ActivityVideo', { id: this.row.id, link: this.form.link })
         .then(res => {
           this.toggleDialog()
           this.$emit('success', this.form.link)

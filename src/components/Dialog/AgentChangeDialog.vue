@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
+
 import { getCity } from '@/utils/area'
 
 export default {
@@ -97,7 +97,7 @@ export default {
     submit() {
       this.visible = false
       if (!this.agentInfo && !this.agentInfo.id) return
-      apiBtn('AgentMigrate', { agent_id: this.agentInfo.id, store: this.storeList })
+      this.apiBtn('AgentMigrate', { agent_id: this.agentInfo.id, store: this.storeList })
         .then(res => {
           this.toggleDialog()
           this.$emit('success')
@@ -109,7 +109,7 @@ export default {
         this.$message('请输入完整的输入代理商id或者代理商名称')
         return
       }
-      apiBtn('AgentInfoIndex', { keywords: this.keywords })
+      this.apiBtn('AgentInfoIndex', { keywords: this.keywords })
         .then(res => {
           this.agentInfo = res.data
           if (!this.agentInfo) this.showTip = true

@@ -32,10 +32,10 @@
 </template>
 
 <script>
+import { deleteArrayById } from '@/utils'
+
 import ComplexTable from '@/components/Table/ComplexTable'
 import DatePicker from '@/components/Tool/DatePicker'
-import { deleteArrayById } from '@/utils'
-import { apiBtn } from '@/api/default'
 
 export default {
   name: 'LogPic',
@@ -88,7 +88,7 @@ export default {
     getList(pagination) {
       if (pagination) this.pagination = { ...pagination }
       else this.initPagination()
-      apiBtn('TipIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
+      this.apiBtn('TipIndex', { ...this.pagination, ...this.formSearch, ...this.otherSearch })
         .then((res) => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -96,14 +96,14 @@ export default {
     },
     // 获取标签
     getOption() {
-      apiBtn('TagIndex').then((res) => {
+      this.apiBtn('TagIndex').then((res) => {
         this.tagOption = res.data
       })
     },
     // 删除
     handleDel(row) {
       this.defalultConfirm('删除' + row.title + ', 是否继续?', () => {
-        apiBtn('TipDestroy', { id: row.id })
+        this.apiBtn('TipDestroy', { id: row.id })
           .then((res) => {
             deleteArrayById(this.tableData, row.id)
             this.pagination.total--

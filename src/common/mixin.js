@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import store from '@/store'
 import router from '@/router'
-
 import { MessageBox } from 'element-ui'
+
 import { parseTime, formatTime } from './filter'
+import { apiBtn } from '@/api/default'
+
 /**
  *该混入组件只用于定义全局复用方法
  * 不书写业务逻辑
  */
 Vue.mixin({
   methods: {
+    // 请求
+    apiBtn,
     // 格式化时间
     parseTime,
     formatTime,
@@ -88,6 +92,5 @@ Vue.mixin({
 
       return result
     }
-
   }
 })

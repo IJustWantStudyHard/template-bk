@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { apiBtn } from '@/api/default'
-
 export default {
   data() {
     return {
@@ -27,7 +25,7 @@ export default {
   },
   created() {
     if (this.tip.id) {
-      apiBtn('TipShow', { id: this.tip.id })
+      this.apiBtn('TipShow', { id: this.tip.id })
         .then((res) => {
           this.tip = { ...this.tip, ...res.data }
         })

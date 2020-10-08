@@ -41,7 +41,6 @@
 
 <script>
 import ComplexTable from '@/components/Table/ComplexTable'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { ComplexTable },
@@ -123,7 +122,7 @@ export default {
         size: this.pagination.size,
         page: this.pagination.page
       }
-      apiBtn('RedIndex', params)
+      this.apiBtn('RedIndex', params)
         .then(res => {
           this.tableData = res.data.list
           this.pagination.total = res.data.total
@@ -146,7 +145,7 @@ export default {
       const params = {
         act_id: this.otherSearch.id
       }
-      apiBtn('PhoneExport', params)
+      this.apiBtn('PhoneExport', params)
         .then(res => {
           // excel数据导出
           require.ensure([], () => {
@@ -166,7 +165,7 @@ export default {
       return jsonData.map(v => filterVal.map(j => v[j]))
     },
     getLocation(obj) {
-      apiBtn('DecodeLocation', { id: this.otherSearch.id, location: obj.location })
+      this.apiBtn('DecodeLocation', { id: this.otherSearch.id, location: obj.location })
         .then(res => {
           const h = this.$createElement
           this.$msgbox({

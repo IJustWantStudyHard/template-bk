@@ -16,10 +16,9 @@
   </div>
 </template>
 <script>
-import UserPassword from '@/components/Form/Sys/UserPassword'
-
-import { apiBtn } from '@/api/default'
 import { setTimeout } from 'timers'
+
+import UserPassword from '@/components/Form/Sys/UserPassword'
 
 export default {
   name: 'Password',
@@ -40,7 +39,7 @@ export default {
     // 修改密码
     passwordSubmit() {
       if (this.$refs.passwordChild.validateForm()) {
-        apiBtn('AgentPatch', {
+        this.apiBtn('AgentPatch', {
           id: this.$store.getters.userId,
           cupassword: this.passwordData.cupassword,
           password: this.passwordData.password })

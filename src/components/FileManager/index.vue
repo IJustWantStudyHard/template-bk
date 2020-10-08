@@ -84,7 +84,6 @@
 
 <script>
 import request from '@/utils/request'
-import { apiBtn } from '@/api/default'
 import { getToken } from '@/utils/auth'
 import Watermark from '@/utils/watermark.js'
 
@@ -200,7 +199,7 @@ export default {
     },
     // 获取列表
     getList() {
-      apiBtn('UploadIndex', { page: this.page, type: this.type, size: this.pageSize })
+      this.apiBtn('UploadIndex', { page: this.page, type: this.type, size: this.pageSize })
         .then(res => {
           this.list = res.data.list
           this.total = res.data.total

@@ -41,7 +41,6 @@
 import DatePicker from '@/components/Tool/DatePicker'
 import Tinymce from '@/components/Tinymce/index'
 import TagManage from '@/components/TagManage/index'
-import { apiBtn } from '@/api/default'
 
 export default {
   components: { Tinymce, TagManage, DatePicker },
@@ -101,13 +100,13 @@ export default {
   methods: {
     // 角色列表
     getTipRole() {
-      apiBtn('RoleIndex', { route: 'tip' })
+      this.apiBtn('RoleIndex', { route: 'tip' })
         .then(res => {
           this.roleOption = res.data
         })
     },
     getTip() {
-      apiBtn('TipShow', { id: this.$route.query.id })
+      this.apiBtn('TipShow', { id: this.$route.query.id })
         .then(res => {
           this.form = res.data
         })
@@ -122,14 +121,14 @@ export default {
       })
     },
     add(formName) {
-      apiBtn('TipStore', { ...this.form })
+      this.apiBtn('TipStore', { ...this.form })
         .then(() => {
           this.resetForm(formName)
           this.$router.go(-1)
         })
     },
     edit(formName) {
-      apiBtn('TipUpdate', { ...this.form }).then(() => {
+      this.apiBtn('TipUpdate', { ...this.form }).then(() => {
         this.resetForm(formName)
       })
     },
