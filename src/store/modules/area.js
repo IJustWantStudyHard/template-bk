@@ -66,18 +66,14 @@ const actions = {
   },
   // 删除指定地区
   DeleteArea({ commit }, params) {
-    const msg = '此操作删除该地区'
-    const callback = () => {
-      apiBtn(params.name, { id: params.scope.row.id })
-        .then(() => {
-          commit('DELETE_AREA', params)
-          // 同步storage
-          const list = getAreaStorage()
-          deleteArrayById(list, params.scope.row.id)
-          setAreaStorage(list)
-        })
-    }
-    this.defalultConfirm(msg, callback)
+    apiBtn(params.name, { id: params.scope.row.id })
+      .then(() => {
+        commit('DELETE_AREA', params)
+        // 同步storage
+        const list = getAreaStorage()
+        deleteArrayById(list, params.scope.row.id)
+        setAreaStorage(list)
+      })
   },
   // 省级需要查询子级，其他不需要
   ToggleFold({ commit, state }, id) {

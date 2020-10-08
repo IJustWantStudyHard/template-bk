@@ -56,11 +56,13 @@ export default {
   methods: {
     // 删除
     deleteArea(scope, name) {
-      const params = {
-        scope: scope,
-        name: name
-      }
-      this.$store.dispatch('area/DeleteArea', params)
+      this.defalultConfirm('此操作删除该地区', () => {
+        const params = {
+          scope: scope,
+          name: name
+        }
+        this.$store.dispatch('area/DeleteArea', params)
+      })
     },
     // emit事件
     toggleDialog(scope, name) {
