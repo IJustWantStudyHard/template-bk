@@ -14,7 +14,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">{{ item.title }}</div>
-          <count-to :start-val="0" :end-val="item.value" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="Number(item.value)" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
