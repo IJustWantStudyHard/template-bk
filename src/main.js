@@ -19,7 +19,7 @@ import '@/icons' // icon
 import '@/permission' // permission control
 
 import '@/common/mixin'
-import * as filters from './common/filter' // global filters
+import * as filters from '@/common/filter' // global filters
 import has from '@/directive/btn_authority'
 
 // 剪切板

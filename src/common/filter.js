@@ -14,7 +14,7 @@ export function parseTime(time, cFormat) {
     date = time
   } else {
     // 兼容苹果手机
-    if ((typeof time === 'string') && time.includes('-')) {
+    if ((typeof time === 'string') && /^(\d{4})-(\d{2})-(\d{2}) (([0-2][0-3])|([0-1][0-9])):[0-5][0-9]:[0-5][0-9]$/.test(time)) {
       time = time.replace(/-/g, '/')
     } else if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
       time = parseInt(time)
